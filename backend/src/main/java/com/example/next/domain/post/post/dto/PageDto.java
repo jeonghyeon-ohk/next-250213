@@ -3,8 +3,8 @@ package com.example.next.domain.post.post.dto;
 import com.example.next.domain.post.post.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NonNull;
 import org.springframework.data.domain.Page;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 

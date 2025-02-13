@@ -1,12 +1,12 @@
 package com.example.next.domain.post.post.controller;
 
 import com.example.next.domain.member.member.entity.Member;
-import com.example.next.domain.member.member.service.MemberService;
 import com.example.next.domain.post.post.dto.PageDto;
 import com.example.next.domain.post.post.dto.PostWithContentDto;
 import com.example.next.domain.post.post.entity.Post;
 import com.example.next.domain.post.post.service.PostService;
 import com.example.next.global.Rq;
+import com.example.next.global.dto.Empty;
 import com.example.next.global.dto.RsData;
 import com.example.next.global.exception.ServiceException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +16,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,10 +29,8 @@ public class ApiV1PostController {
 
     private final PostService postService;
     private final Rq rq;
-    private final MemberService memberService;
 
-
-    record StatisticsResBody(long postCount, long postPublishedCount, long postListedCount) {
+    record StatisticsResBody(@NonNull long postCount, @NonNull long postPublishedCount, @NonNull long postListedCount) {
     }
 
     @Operation(
@@ -179,7 +178,7 @@ public class ApiV1PostController {
     )
     @DeleteMapping("{id}")
     @Transactional
-    public RsData<Void> delete(@PathVariable long id) {
+    public RsData<Empty> delete(@PathVariable long id) {
 
         Member actor = rq.getActor();
 

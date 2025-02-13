@@ -5,6 +5,7 @@ import com.example.next.domain.member.member.entity.Member;
 import com.example.next.domain.member.member.service.MemberService;
 import com.example.next.domain.post.post.service.PostService;
 import com.example.next.global.Rq;
+import com.example.next.global.dto.Empty;
 import com.example.next.global.dto.RsData;
 import com.example.next.global.exception.ServiceException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -51,7 +53,7 @@ public class ApiV1MemberController {
 
     record LoginReqBody(@NotBlank String username, @NotBlank String password) {}
 
-    record LoginResBody(MemberDto item, String apiKey, String accessToken) {}
+    record LoginResBody(@NonNull MemberDto item, @NonNull String apiKey, @NonNull String accessToken) {}
 
     @Operation(summary = "로그인", description = "로그인 성공 시 ApiKey와 AccessToken 반환. 쿠키로도 반환")
     @PostMapping("/login")
@@ -83,7 +85,7 @@ public class ApiV1MemberController {
 
     @Operation(summary = "로그아웃", description = "로그아웃 시 쿠키 삭제")
     @DeleteMapping("/logout")
-    public RsData<Void> logout() {
+    public RsData<Empty> logout() {
 
         rq.removeCookie("accessToken");
         rq.removeCookie("apiKey");
